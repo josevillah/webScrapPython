@@ -39,7 +39,10 @@ class Index:
 
         for product in products:
             link = product.find('a', class_='vtex-product-summary-2-x-clearLink')['href']
-            finishLink = f'https://www.wrangler.cl{link}'
+
+            base_url = self.ruta.split("/")[0] + "//" + self.ruta.split("/")[2]
+
+            finishLink = f'{base_url}/{link}'
 
             if finishLink not in self.arrayLinks:
                 self.arrayLinks.append(finishLink)
@@ -87,6 +90,8 @@ ws.append(["Código", "Nombre", "Categoría"])
 listRuta = [
     'https://www.wrangler.cl/hombre?layout=option_4_items&order=OrderByReleaseDateDESC&page=',
     'https://www.wrangler.cl/mujer?layout=option_4_items&order=OrderByReleaseDateDESC&page=',
+    'https://www.leejeans.cl/hombre?layout=option_4_items&order=OrderByReleaseDateDESC&page=',
+    'https://www.leejeans.cl/mujer?layout=option_4_items&order=OrderByReleaseDateDESC&page='
 ]
 
 # Iterar sobre cada URL en la lista y ejecutar el proceso

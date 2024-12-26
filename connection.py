@@ -25,22 +25,16 @@ class Connection:
         except Error as e:
             print(f"Error al conectar a la base de datos: {e}")
 
-    def execute_query(self, query):
-        """
-        Ejecuta una consulta SQL.
-        """
-        if not self.connection or not self.connection.is_connected():
-            print("No hay conexión activa a la base de datos.")
+
+    def execute_query(self, query, params=None):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, params)
+                return cursor.fetchall()
+        except Exception as e:
+            print(f"Error ejecutando la consulta: {e}")
             return None
 
-        try:
-            cursor = self.connection.cursor()
-            cursor.execute(query)
-            results = cursor.fetchall()
-            return results
-        except Error as e:
-            print(f"Error al ejecutar la consulta: {e}")
-            return None
 
     def close(self):
         """
